@@ -137,7 +137,7 @@ const NumberField = forwardRef<HTMLDivElement, NumberFieldProps>(
       >
         {/* Unit toggle */}
         <div className="grid grid-cols-2 gap-4 mb-6">
-          <div className="">Unit</div>
+          <div className="flex items-center">Unit</div>
           <div className="flex border border-neutral-700 rounded-md overflow-hidden h-10">
             <button
               type="button"
@@ -164,7 +164,7 @@ const NumberField = forwardRef<HTMLDivElement, NumberFieldProps>(
 
         {/* Input field with stepper buttons */}
         <div className="grid grid-cols-2 gap-4">
-          <div className="">Value</div>
+          <div className="flex items-center">Value</div>
           <div className="relative flex items-center border border-neutral-700 rounded-md bg-neutral-800 overflow-hidden h-11">
             {/* Decrement button */}
             <button
