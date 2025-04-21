@@ -17,7 +17,7 @@ interface NumberFieldProps {
 
 const NumberField = forwardRef<HTMLDivElement, NumberFieldProps>(
   (
-    { value: propValue, defaultValue = 0, onChange, onUnitChange, min = 0, max = 100, step = 1, disabled = false, className = "", style, ...props },
+    { value: propValue, defaultValue = 0, onChange, onUnitChange, min = 0, max = 999, step = 1, disabled = false, className = "", style, ...props },
     ref
   ) => {
     const [internalValue, setInternalValue] = useState<number>(defaultValue);
@@ -38,9 +38,11 @@ const NumberField = forwardRef<HTMLDivElement, NumberFieldProps>(
     const clampValue = useCallback(
       (val: number): number => {
         if (isNaN(val)) return min;
-        return Math.min(Math.max(val, min), max);
+        // When unit is %, clamp to 100 as max
+        const effectiveMax = unit === "%" ? Math.min(max, 100) : max;
+        return Math.min(Math.max(val, min), effectiveMax);
       },
-      [min, max]
+      [min, max, unit]  // Add unit to dependencies
     );
 
     const handleUnitChange = (newUnit: Unit) => {
@@ -83,7 +85,7 @@ const NumberField = forwardRef<HTMLDivElement, NumberFieldProps>(
       setIsFocused(false);
 
       let numValue = parseFloat(displayValue);
-      if (isNaN(numValue)) {
+      if (isNaN(numValue) || displayValue === "") {
         // If input is empty or invalid, use the last valid value
         numValue = internalValue;
       }
@@ -124,7 +126,7 @@ const NumberField = forwardRef<HTMLDivElement, NumberFieldProps>(
 
     // Disable buttons based on value
     const isDecrementDisabled = disabled || internalValue <= min;
-    const isIncrementDisabled = disabled || internalValue >= max;
+    const isIncrementDisabled = disabled || internalValue >= (unit === "%" ? Math.min(max, 100) : max);
 
     return (
       <div
