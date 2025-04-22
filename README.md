@@ -1,3 +1,28 @@
+# Test-210425
+Requirement
+Code Ul như design và logic thoả mãn các điều kiện sau:
+
+Unit
+- Gồm 2 giá trị là: % và px
+- Default value: %
+
+Value stepper
+- Cho phép nhập các giá trị integer và float
+- Nếu input chứa dấu phẩy → Thay thế thành dấu chấm
+  - 12,3 → 12.3
+- Nếu input chứa các kí tự khác giá trị số phù hợp → tự động loại bỏ các giá trị:
+  - 123a → 123
+  - 12a3 → 12
+  - a123 → Nhận giá trị đúng gần nhất
+- User nhập < 0 và out focus sẽ tự động nhảy về 0
+- Nếu Unit là %:
+  - User nhập > 100 và out focus sẽ tự động nhảy về giá trị hợp lệ trước khi nhập
+  - Nếu giá trị trong ô input hiện tại là O → Disable button "-"
+  - Nếu giá trị trong ô input hiện tại là 100 → Disable button "+"
+- Nếu switch từ px sang % và giá trị hiện tại lớn hơn 100 → Update về 100
+
+![ui](https://res.cloudinary.com/ngoviettung154/image/upload/v1745316175/_demo/images/fe120326-6cda-4f3b-9c63-553371bea70d.png)
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
